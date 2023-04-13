@@ -1,16 +1,17 @@
 <div class="row">
     <div class="col-lg-6">
         <h3>Preview</h3>
-        <!-- <button (click)="download('maindiv')">download</button> -->
-        <button (click)="download()">download</button>
+        <button (click)="download('maindiv')">download</button>
         <div class="maindiv" id="maindiv" style="height: 500px;" *ngIf="datas">
 
             <img class="image img-fluid" src="{{ datas.previewpath }}">
             <div class="toname">
-                <h4 class="text-center">{{datas.to}}</h4>
+                <h3 class="text-center">To</h3>
+                <h4>{{datas.to}}</h4>
             </div>
             <div class="fromname">
-                <h5 class="text-center">From <span class="h3 ms-2" >{{datas.from}}</span> </h5>
+                <h3 class="text-center">From</h3>
+                <h4>{{datas.from}}</h4>
             </div>
             <!-- <b class="toname" >{{datas.to}}</b> -->
             <!-- <b class="fromname">{{datas.from}}</b> -->

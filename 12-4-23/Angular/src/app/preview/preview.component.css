@@ -7,7 +7,6 @@
     position: relative;
     z-index: 1;
     height: 100%;
-    width: 100%;
 }
 
 .toname{
@@ -15,7 +14,7 @@
     z-index: 2;
     color: white;
     top: 20px;
-    left: 20%;
+    left: 38%;
 }
 
 .fromname{
@@ -23,6 +22,6 @@
     z-index: 2;
     color: rgb(255, 255, 255);
     bottom: 10px;
-    left: 70%;
+    left: 38%;
 }
 
