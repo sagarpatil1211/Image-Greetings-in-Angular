@@ -16,6 +16,7 @@
     color: white;
     top: 20px;
     left: 20%;
+    cursor: pointer;
 }
 
 .fromname{
@@ -24,5 +25,6 @@
     color: rgb(255, 255, 255);
     bottom: 10px;
     left: 70%;
+    cursor: pointer;
 }
 

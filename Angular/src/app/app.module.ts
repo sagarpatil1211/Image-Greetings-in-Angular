@@ -7,19 +7,25 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
 import { PreviewComponent } from './preview/preview.component'
+import { KonvaModule } from 'ng2-konva';
+import { TrialComponent } from './trial/trial.component';
+import { AngularDraggableModule } from 'angular2-draggable';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    PreviewComponent
+    PreviewComponent,
+    TrialComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    KonvaModule,
+    AngularDraggableModule
   ],
   providers: [],
   bootstrap: [AppComponent]

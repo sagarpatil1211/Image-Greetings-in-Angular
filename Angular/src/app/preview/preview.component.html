@@ -3,18 +3,36 @@
         <h3>Preview</h3>
         <!-- <button (click)="download('maindiv')">download</button> -->
         <button (click)="download()">download</button>
-        <div class="maindiv" id="maindiv" style="height: 500px;" *ngIf="datas">
-
+        <div  id="maindiv" style="height: 500px;" *ngIf="datas">
             <img class="image img-fluid" src="{{ datas.previewpath }}">
-            <div class="toname">
-                <h4 class="text-center">{{datas.to}}</h4>
+            <div ngDraggable [handle]="toNameDragger" class="toname">
+                <div #toNameDragger>
+                <h4 (click)="selectElement(0)" id="greetingto" class="text-center">{{datas.to}}</h4>
             </div>
-            <div class="fromname">
-                <h5 class="text-center">From <span class="h3 ms-2" >{{datas.from}}</span> </h5>
             </div>
-            <!-- <b class="toname" >{{datas.to}}</b> -->
-            <!-- <b class="fromname">{{datas.from}}</b> -->
-
+            <div ngDraggable [handle]="fromNameDragger" class="fromname">
+                <div #fromNameDragger >
+                    <span class="h5" >From <span class="h3 ms-2" (click)="selectElement(1)" id="greetingfrom">{{datas.from}}</span> </span >
+                </div>
+            </div>
         </div>
+    </div>
+    <div class="col-lg-6" *ngIf="currentElement">
+        <h3>{{ currentElement.text }}</h3>
+        Font Family
+        <select class="form-control" (change)="fontChanged('fontfamily', $event)">
+            <option value="Times New Roman">Times New Roman</option>
+            <option value="Courier New">Courier New</option>
+        </select>
+
+        Font Size
+        <!-- <select  class="form-control" (change)="fontChanged('fontsize', $event)">
+            <option value="10px">10px</option>
+            <option value="20px">20px</option>
+        </select> -->
+        <input type="range" id="vol" name="vol" min="0" max="100" (change)="fontChanged('fontsize', $event)">
+
+        Color
+        <input type="color" (change)="fontChanged('color', $event)" />
     </div>
 </div>
