@@ -2,17 +2,22 @@
   <div class="col-lg-6">
     <form [formGroup]="formdata" (ngSubmit)="submit(formdata.value)">
 
+      <select class="form-control mb-3" #usertype (change)="usertypeChanged(usertype.value)">
+        <option value="0">Select</option>
+        <option *ngFor="let data of usertypes" value="{{data._id}}">{{data.usertype}}</option>
+      </select>
+
       <input type="text" class="form-control mb-3" placeholder=" From" formControlName="from">
 
       <input type="text" class="form-control mb-3" placeholder="To" formControlName="to">
 
       <select class="form-control mb-3" #g (change)="greetingChanged(g.value)">
-        <option value="0">Select</option>
+        <option value="0">Select Greeting</option>
         <option *ngFor="let data of greetings" value="{{data._id}}">{{data.name}}</option>
       </select>
 
       <select class="form-control mb-3" #sg (change)="subGreetingChanged(sg.value)">
-        <option value="0">Select</option>
+        <option value="0">Select Subgreeting</option>
         <option *ngFor="let data of subgreetings" value="{{data._id}}">{{data.name}}</option>
       </select>
 
@@ -24,7 +29,7 @@
       </div>
 
       <!-- <input type="text" class="form-control mt-3" enctype="multipart/form-data" placeholder="Choose file"  formControlName = "image"> -->
-      <button type="submit" class="btn btn-primary mt-3">Preview</button>
+      <button type="submit" [disabled]="formdata.invalid" class="btn btn-primary mt-3">Preview</button>
     </form>
   </div>
 </div>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from '../api.service';
 import { Router } from '@angular/router';
 
@@ -13,6 +13,7 @@ export class HomeComponent implements OnInit {
   greetings:any
   subgreetings :any;
   templates:any;
+  usertypes:any;
 
   constructor(public api :ApiService , private router :Router){
 
@@ -23,16 +24,22 @@ export class HomeComponent implements OnInit {
     this.api.get("greetings").subscribe((result:any)=>{
       // console.log(result.data);
       this.greetings = result.data;
-      
     })
+
+    this.api.get("usertypes").subscribe((result:any)=>{
+
+      this.usertypes = result.data;
+    })
+
     this.load();
 
   }
   load() {
     this.formdata = new FormGroup({
-      from: new FormControl(""),
-      to: new FormControl(""),
-      previewpath: new FormControl(""),
+      usertype : new FormControl("", Validators.required),
+      from: new FormControl("", Validators.required),
+      to: new FormControl("", Validators.required),
+      previewpath: new FormControl("", Validators.required),
       imagepath: new FormControl(""),
     })
   }
@@ -49,9 +56,15 @@ export class HomeComponent implements OnInit {
     // console.log(id);
     let subgreetingid = id;
     this.api.get("templates").subscribe((result:any)=>{
-      console.log(result.data);
       this.templates = result.data;
     }) 
+  }
+
+  usertypeChanged(id:any){
+    let usertypeid = id;
+    this.formdata.patchValue({
+      usertype : id
+     })
   }
 
   url(data:any){
@@ -63,7 +76,7 @@ export class HomeComponent implements OnInit {
   }
 
   submit(data: any) {
-    // console.log(data);
+    console.log(data);
     this.api.post("downloadtemplates", data).subscribe((result:any)=>{
       console.log(result);
       if(result.status == "success"){

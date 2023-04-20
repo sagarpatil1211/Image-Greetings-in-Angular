@@ -3,8 +3,9 @@ let Schema = mongoose.Schema;
 
 let schema = new Schema(
     {
-        from : { type : String },
-        to : { type : String },
+        usertype : { type : Schema.Types.ObjectId, ref :"usertypes" },
+        from : { type : String , required : true},
+        to : { type : String , required : true},
         previewpath : { type : String },
         imagepath : { type : String },
     }

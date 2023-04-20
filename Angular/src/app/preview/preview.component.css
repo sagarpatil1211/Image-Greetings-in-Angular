@@ -1,10 +1,10 @@
 
-.maindiv { 
+#maindiv { 
     position: relative;
 }
 
 .image{
-    position: relative;
+    /* position: relative; */
     z-index: 1;
     height: 100%;
     width: 100%;
@@ -14,8 +14,8 @@
     position: absolute;
     z-index: 2;
     color: white;
-    top: 20px;
-    left: 20%;
+    top: 8px;
+    left: 16px;
     cursor: pointer;
 }
 
@@ -23,8 +23,8 @@
     position: absolute;
     z-index: 2;
     color: rgb(255, 255, 255);
-    bottom: 10px;
-    left: 70%;
+    bottom: 8px;
+    right: 16px;
     cursor: pointer;
 }
 

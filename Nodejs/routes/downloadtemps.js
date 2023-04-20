@@ -5,8 +5,8 @@ let router = express.Router();
 
 router.post("/", (req,res)=>{
     let body = req.body ;
-    console.log(body);
     let object = DownloadTemplate();
+    object.usertype = body.usertype;
     object.from = body.from;
     object.to = body.to;
     object.previewpath = body.previewpath;

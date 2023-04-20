@@ -20,5 +20,22 @@
 </head>
 <body>
   <app-root></app-root>
+  <!-- <button class="btn btn-primary mb-2" (click)="saveAsImage()">download</button>
+
+  <script>
+    function saveAsImage()
+    {
+      let divName = 'maindiv';
+        html2canvas([document.getElementById(divName)], {
+            onrendered: function (canvas) {
+        var a = document.createElement('a');
+        // toDataURL defaults to png, so we need to request a jpeg, then convert for file download.
+        a.href = canvas.toDataURL("image/jpeg").replace("image/jpeg", "image/octet-stream");
+        a.download = 'DO_Om Metalics220325.jpg';
+        a.click();
+      }
+        });
+    }
+  </script> -->
 </body>
 </html>

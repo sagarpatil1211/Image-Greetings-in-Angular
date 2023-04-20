@@ -1,13 +1,13 @@
 let express = require("express");
-let Greeting = require("../model/Greeting");
+let Usertype = require("../model/Usertype");
 const { json } = require("body-parser");
 let router = express.Router();
 
 router.post("/", (req,res)=>{
     let body = req.body ;
     console.log(body);
-    let object = Greeting();
-    object.name = body.name;
+    let object = Usertype();
+    object.usertype = body.usertype;
 
     object.save().then((result)=>{
         res.end(JSON.stringify({status : "success", data : result}))
@@ -20,7 +20,7 @@ router.post("/", (req,res)=>{
 router.put("/:id", (req,res)=>{
     let id = req.params.id
     let body = req.body;
-    Greeting.findByIdAndUpdate(id,body).then((result)=>{
+    Usertype.findByIdAndUpdate(id,body).then((result)=>{
         res.end(JSON.stringify({status : "success", data : result}))
     }).catch((error)=>{
         res.end(JSON.stringify({status : "failed", data : error}))
@@ -29,7 +29,7 @@ router.put("/:id", (req,res)=>{
 })
 
 router.get("/", (req,res)=>{
-    Greeting.find().then((result)=>{
+    Usertype.find().sort({usertype:1}).then((result)=>{
         res.end(JSON.stringify({status : "success", data : result}))
     }).catch((error)=>{
         res.end(JSON.stringify({status : "failed", data : error}))
@@ -37,9 +37,21 @@ router.get("/", (req,res)=>{
     })
 })
 
+router.get("/:id", (req,res)=>{
+    let id = req.params.id
+    Usertype.findById(id).then((result)=>{
+        
+        if( Object.keys(result).length >0)
+        res.end(JSON.stringify({status : "success", data : result}))
+    }).catch((error)=>{
+        res.end(JSON.stringify({status : "failed", data : "Record Not Found"}))
+
+    })
+})
+
 router.delete("/:id", (req,res)=>{
     let id = req.params.id;
-    Greeting.findByIdAndDelete(id).then((result)=>{
+    Usertype.findByIdAndDelete(id).then((result)=>{
         res.end(JSON.stringify({status : "success", data : result}))
     }).catch((error)=>{
         res.end(JSON.stringify({status : "failed", data : error}))

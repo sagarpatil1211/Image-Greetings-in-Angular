@@ -3,24 +3,33 @@ import { ApiService } from '../api.service';
 import { ActivatedRoute } from '@angular/router';
 import html2canvas from 'html2canvas';
 import { MyElement } from '../models/MyElement';
-import * as htmlToImage from 'html-to-image';
+import domtoimage from 'dom-to-image-more';
+
+declare var saveAsImage:any;
+
 @Component({
   selector: 'app-preview',
   templateUrl: './preview.component.html',
   styleUrls: ['./preview.component.css']
 })
 export class PreviewComponent implements OnInit {
+[x: string]: any;
+  
 
   id: any;
   datas: any;
   elements = new Array();
   currentElement: MyElement | undefined;
   index = -1;
+  base64string:any;
+  saveAsImage:any;
   constructor(private api: ApiService, private route: ActivatedRoute) {
     this.id = this.route.snapshot.paramMap.get('id');
   }
 
   ngOnInit(): void {
+    // this.saveAsImage = saveAsImage();
+    
     this.api.get("downloadtemplates/" + this.id).subscribe((result: any) => {
       this.datas = result.data;
       console.log(this.datas);
@@ -30,6 +39,12 @@ export class PreviewComponent implements OnInit {
       this.elements.push(element0);
       let element1 = new MyElement("greetingfrom", this.datas.from);
       this.elements.push(element1);
+
+
+    //   this.toDataUrl(this.datas.previewpath, (myBase64:any) => {
+    //     this.base64string = myBase64; // myBase64 is the base64 string
+    // });
+
     })
   }
 
@@ -92,22 +107,48 @@ export class PreviewComponent implements OnInit {
     // });
     // }
 
-     var container = document.getElementById("maindiv");; /* full page */
-    if (container != null) {
-      html2canvas(container).then(function (canvas) {
-        let generatedImage = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
-        console.log(generatedImage);
+    //  var container = document.getElementById("image");; /* full page */
+    // if (container != null) {
+    //   html2canvas(container).then(function (canvas) {
+    //     let generatedImage = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+    //     console.log(generatedImage);
         
-    let a = document.createElement('a');
-    console.log(a);
+    // let a = document.createElement('a');
+    // console.log(a);
     
-        a.href = generatedImage;
-        a.download = `index.png`;
-        a.click();
-      });
-    }
+    //     a.href = generatedImage;
+    //     a.download = `index.png`;
+    //     a.click();
+    //   });
+    // }
+
+  //   html2canvas(document.body).then(function(canvas) {
+  //    let data = document.body.appendChild(canvas);
+  //    console.log(data);
+
+  // });
+
+//   html2canvas(document.body).then(function(canvas) {
+  
+//     const base64image = canvas.toDataURL("image/png");
+//     window.location.href = base64image;
+//  });
+
+
+domtoimage
+    .toJpeg(document.getElementById('maindiv'), { quality: 1000 })
+    .then(function (data:any) {
+      // console.log(data);
+      
+        var link = document.createElement('a');
+        link.download = 'my-image-name.jpeg';
+        
+        link.href = data;
+        // console.log(link.href);
+        
+        link.click();
+    });
    
-    
    
 
 
@@ -115,6 +156,24 @@ export class PreviewComponent implements OnInit {
 
 
   }
+
+  
+
+  toDataUrl(url:string, callback:any) {
+    console.log(url);
+    
+    var xhr = new XMLHttpRequest();
+    xhr.onload = function() {
+        var reader = new FileReader();
+        reader.onloadend = function() {
+            callback(reader.result);
+        }
+        reader.readAsDataURL(xhr.response);
+    };
+    xhr.open('GET', url);
+    xhr.responseType = 'blob';
+    xhr.send();
+} 
 
 
 
